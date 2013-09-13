@@ -16,17 +16,17 @@
 Configuration
 =============
 
-.. todo:: Configuring CouchDB
+.. todo:: Configuring Cloudant
 
-CouchDB Configuration Files
+Cloudant Configuration Files
 ===========================
 
-.. todo:: CouchDB Configuration Files
+.. todo:: Cloudant Configuration Files
 
 Configuration File Locations
 ============================
 
-CouchDB reads files from the following locations, in the following
+Cloudant reads files from the following locations, in the following
 order.
 
 1. ``PREFIX/default.ini``
@@ -57,7 +57,7 @@ Update Notifications
 MochiWeb Server Options
 =======================
 
-Server options for the MochiWeb component of CouchDB can be added to the
+Server options for the MochiWeb component of Cloudant can be added to the
 configuration files. Settings should be added to the ``server_options``
 option of the ``[httpd]`` section of ``local.ini``. For example:
 
@@ -69,8 +69,8 @@ option of the ``[httpd]`` section of ``local.ini``. For example:
 Socket Options Configuration Setting
 ====================================
 
-The socket options for the listening socket in CouchDB can now be set
-within the CouchDB configuration file. The setting should be added to
+The socket options for the listening socket in Cloudant can now be set
+within the Cloudant configuration file. The setting should be added to
 the ``[httpd]`` section of the file using the option name
 ``socket_options``. The specification is as a list of tuples. For
 example:
@@ -89,7 +89,7 @@ TCP/IP stack. A list of the supported options are provided in the
 Virtual Hosts
 =============
 
-CouchDB, since 0.11.0, can map requests to different locations based on
+Cloudant, since 0.11.0, can map requests to different locations based on
 the ``Host`` header, even if they arrive on the some inbound IP address.
 
 This allows different virtual hosts on the same machine to map to different
@@ -103,7 +103,7 @@ the hosts file, typically `/etc/hosts`` on Unix-like operating systems:
 
 .. code-block:: bash
 
-    # CouchDB vhost definitions, refer to local.ini for further details
+    # Cloudant vhost definitions, refer to local.ini for further details
     127.0.0.1       sofa.couchdb
 
 Test that this is working:
@@ -122,12 +122,12 @@ section:
 .. code-block:: ini
 
     [vhosts]
-    sofa.couchdb:5984 = /sofa/_design/sofa/_rewrite
+    sofa.USERNAME.cloudant.com = /sofa/_design/sofa/_rewrite
 
-If your CouchDB is listening on the default HTTP port, or is sitting
+If your Cloudant is listening on the default HTTP port, or is sitting
 behind a proxy, then don't specify a port number in the vhost key.
 
-With the above setup, a request to ``http://sofa.couchdb:5984/sweet-o``
+With the above setup, a request to ``http://sofa.USERNAME.cloudant.com/sweet-o``
 will be mapped to
 ``http://127.0.0.1:5984/sofa/_design/sofa/_rewrite/sweet-o``
 
@@ -136,7 +136,7 @@ will be mapped to
 HTTP Rewrite Handler
 ====================
 
-Following on from `virtual hosts`_, CouchDB includes a custom URL rewriter.
+Following on from `virtual hosts`_, Cloudant includes a custom URL rewriter.
 All rewriting is done from ``/dbname/_design/ddocname/_rewrite`` by default.
 
 The rewriter is flexible, and can handle methods and custom query formats.
@@ -199,10 +199,10 @@ by default at 100.
 Configuring Server Administrators
 =================================
 
-A default CouchDB install provides admin-level access to all connecting users.
+A default Cloudant install provides admin-level access to all connecting users.
 This configuration is known as ``Admin Party``, and is not recommended for
 in-production usage. You can crash the party simply by creating the first
-admin account. CouchDB server administrators and passwords are not stored
+admin account. Cloudant server administrators and passwords are not stored
 in the ``_users`` database, but in the ``local.ini`` file, which should be
 appropriately secured and readable only by system administrators.
 
@@ -214,9 +214,9 @@ appropriately secured and readable only by system administrators.
     architect = -pbkdf2-43ecbd256a70a3a2f7de40d2374b6c3002918834,921a12f74df0c1052b3e562a23cd227f,10000
 
 Administrators can be added directly to the ``[admins]`` section, and when
-CouchDB is restarted, the passwords will be salted and encrypted. You may
+Cloudant is restarted, the passwords will be salted and encrypted. You may
 also use the HTTP interface to create administrator accounts; this way,
-you don't need to restart CouchDB, and there's no need to temporarily store
+you don't need to restart Cloudant, and there's no need to temporarily store
 or transmit passwords in plaintext. The HTTP ``_config/admins`` endpoint
 supports querying, deleting or creating new admin accounts:
 
@@ -231,7 +231,7 @@ supports querying, deleting or creating new admin accounts:
         Content-Length: 196
         Content-Type: application/json
         Date: Fri, 30 Nov 2012 11:37:18 GMT
-        Server: CouchDB/1.3.0 (Erlang OTP/R15B02)
+        Server: Cloudant/1.3.0 (Erlang OTP/R15B02)
 
 .. code-block:: json
 
@@ -241,8 +241,8 @@ supports querying, deleting or creating new admin accounts:
         }
 
 If you already have a salted, encrypted password string (for example,
-from an old ``local.ini`` file, or from a different CouchDB server), then
-you can store the "raw" encrypted string, without having CouchDB doubly
+from an old ``local.ini`` file, or from a different Cloudant server), then
+you can store the "raw" encrypted string, without having Cloudant doubly
 encrypt it.
 
 .. code-block:: bash
@@ -260,7 +260,7 @@ encrypt it.
         Content-Length: 89
         Content-Type: application/json
         Date: Fri, 30 Nov 2012 11:39:18 GMT
-        Server: CouchDB/1.3.0 (Erlang OTP/R15B02)
+        Server: Cloudant/1.3.0 (Erlang OTP/R15B02)
 
 .. code-block:: json
 
@@ -277,13 +277,13 @@ work factor for ``PBKDF2``, and the algorithm itself at
 OS Daemons
 ==========
 
-CouchDB now supports starting external processes. The support is simple
-and enables CouchDB to start each configured OS daemon. If the daemon
-stops at any point, CouchDB will restart it (with protection to ensure
+Cloudant now supports starting external processes. The support is simple
+and enables Cloudant to start each configured OS daemon. If the daemon
+stops at any point, Cloudant will restart it (with protection to ensure
 regularly failing daemons are not repeatedly restarted).
 
 The daemon starting process is one-to-one; for each each configured
-daemon in the configuration file, CouchDB will start exactly one
+daemon in the configuration file, Cloudant will start exactly one
 instance. If you need to run multiple instances, then you must create
 separate individual configurations. Daemons are configured within the
 ``[os_daemons]`` section of your configuration file (``local.ini``). The
@@ -304,23 +304,23 @@ For example:
     [os_daemons]
     basic_responder = /usr/local/bin/responder.js
 
-There is no interactivity between CouchDB and the running process, but
+There is no interactivity between Cloudant and the running process, but
 you can use the OS Daemons service to create new HTTP servers and
 responders and then use the new proxy service to redirect requests and
-output to the CouchDB managed service. For more information on proxying,
+output to the Cloudant managed service. For more information on proxying,
 see :ref:`http-proxying`. For further background on the OS Daemon service, see
-`CouchDB Externals API`_.
+`Cloudant Externals API`_.
 
-.. _CouchDB Externals API: http://davispj.com/2010/09/26/new-couchdb-externals-api.html
+.. _Cloudant Externals API: http://davispj.com/2010/09/26/new-couchdb-externals-api.html
 
 Native SSL Support
 ==================
 
-CouchDB |version| supports SSL natively. All your secure connection needs can
+Cloudant |version| supports SSL natively. All your secure connection needs can
 now be served without needing to setup and maintain a separate proxy server
 that handles SSL.
 
-SSL setup can be tricky, but the configuration in CouchDB was designed
+SSL setup can be tricky, but the configuration in Cloudant was designed
 to be as easy as possible. All you need is two files; a certificate and
 a private key. If you bought an official SSL certificate from a
 certificate authority, both should be in your possession already.
@@ -340,7 +340,7 @@ already is.
     shell> ls
     mycert.pem privkey.pem
 
-Now, you need to edit CouchDB's configuration, either by editing your
+Now, you need to edit Cloudant's configuration, either by editing your
 ``local.ini`` file or using the ``/_config`` API calls or the
 configuration screen in Futon. Here is what you need to do in
 ``local.ini``, you can infer what needs doing in the other places.
@@ -350,7 +350,7 @@ Be sure to make these edits. Under ``[daemons]`` you should see:
 ::
 
     ; enable SSL support by uncommenting the following line and supply the PEM's below.
-    ; the default ssl port CouchDB listens on is 6984
+    ; the default ssl port Cloudant listens on is 6984
     ;httpsd = {couch_httpd, start_link, [https]}
 
 Here uncomment the last line:
@@ -376,7 +376,7 @@ Uncomment and adjust the paths so it matches your system's paths:
 For more information please read
 `http://www.openssl.org/docs/HOWTO/certificates.txt`_.
 
-Now start (or restart) CouchDB. You should be able to connect to it
+Now start (or restart) Cloudant. You should be able to connect to it
 using HTTPS on port 6984:
 
 ::
@@ -417,12 +417,12 @@ HTTP Proxying
 =============
 
 The HTTP proxy feature makes it easy to map and redirect different
-content through your CouchDB URL. The proxy works by mapping a pathname
+content through your Cloudant URL. The proxy works by mapping a pathname
 and passing all content after that prefix through to the configured
 proxy address.
 
 Configuration of the proxy redirect is handled through the
-``[httpd_global_handlers]`` section of the CouchDB configuration file
+``[httpd_global_handlers]`` section of the Cloudant configuration file
 (typically ``local.ini``). The format is:
 
 .. code-block:: ini
@@ -451,7 +451,7 @@ The proxy process then translates requests of the form:
 
 .. code-block:: text
 
-    http://couchdb:5984/PREFIX/path
+    http://USERNAME.cloudant.com/PREFIX/path
 
 To:
 
@@ -471,10 +471,10 @@ For example, the following configuration:
 
     _google = {couch_httpd_proxy, handle_proxy_req, <<"http://www.google.com">>}
 
-Would forward all requests for ``http://couchdb:5984/_google`` to the
+Would forward all requests for ``http://USERNAME.cloudant.com/_google`` to the
 Google website.
 
-The service can also be used to forward to related CouchDB services,
+The service can also be used to forward to related Cloudant services,
 such as Lucene:
 
 .. code-block:: ini
@@ -488,9 +488,9 @@ such as Lucene:
    incomplete, the original request URL is interpreted as if the
    ``PREFIX`` component of that URL does not exist.
 
-   For example, requesting ``http://couchdb:5984/_intranet/media`` when
+   For example, requesting ``http://USERNAME.cloudant.com/_intranet/media`` when
    ``/media`` on the proxy destination does not exist, will cause the
-   request URL to be interpreted as ``http://couchdb:5984/media``. Care
+   request URL to be interpreted as ``http://USERNAME.cloudant.com/media``. Care
    should be taken to ensure that both requested URLs and destination
    URLs are able to cope.
 
@@ -505,22 +505,22 @@ page running JavaScript inside a browser, to make AJAX requests
 of either party.
 
 A typical use case is to have a static website hosted on a CDN make
-requests to another resource, such as a hosted CouchDB instance. This
+requests to another resource, such as a hosted Cloudant instance. This
 avoids needing an intermediary proxy, using JSONP or similar workarounds
 to retrieve and host content.
 
-While CouchDB's integrated HTTP server and support for document attachments
-makes this less of a constraint for pure CouchDB projects, there are many
+While Cloudant's integrated HTTP server and support for document attachments
+makes this less of a constraint for pure Cloudant projects, there are many
 cases where separating the static content from the database access is
 desirable, and CORS makes this very straightforward.
 
-By supporting CORS functionality, a CouchDB instance can accept direct
+By supporting CORS functionality, a Cloudant instance can accept direct
 connections to protected databases and instances, without the browser
 functionality being blocked due to same-origin constraints. CORS is
 supported today on over 90% of recent browsers.
 
 CORS support is provided as experimental functionality in 1.3.0, and as such
-will need to be enabled specifically in CouchDB's configuration. While all
+will need to be enabled specifically in Cloudant's configuration. While all
 origins are forbidden from making requests by default, support is available
 for simple requests, preflight requests and per-vhost configuration.
 
@@ -548,14 +548,14 @@ Passing Credentials
 By default, neither authentication headers nor cookies are included in
 requests and responses. To do so requires both setting
 `XmlHttpRequest.withCredentials = true` on the request object in the
-browser and enabling credentials support in CouchDB.
+browser and enabling credentials support in Cloudant.
 
 .. code-block:: ini
 
     [cors]
     credentials = true
 
-CouchDB will respond to a credentials-enabled CORS request with an additional
+Cloudant will respond to a credentials-enabled CORS request with an additional
 header, `Access-Control-Allow-Credentials=true`.
 
 Tightening Access

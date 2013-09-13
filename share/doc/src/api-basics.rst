@@ -16,13 +16,13 @@
 API Basics
 ==========
 
-The CouchDB API is the primary method of interfacing to a CouchDB
+The Cloudant API is the primary method of interfacing to a Cloudant
 instance. Requests are made using HTTP and requests are used to request
 information from the database, store new data, and perform views and
 formatting of the information stored within the documents.
 
 Requests to the API can be categorised by the different areas of the
-CouchDB system that you are accessing, and the HTTP method used to send
+Cloudant system that you are accessing, and the HTTP method used to send
 the request. Different methods imply different operations, for example
 retrieval of information from the database is typically handled by the
 ``GET`` operation, while updates are handled by either a ``POST`` or
@@ -35,11 +35,11 @@ structure, is defined within a JavaScript Object Notation (JSON) object.
 Basic information on the content and data types for JSON are provided in
 :ref:`json`.
 
-Errors when accessing the CouchDB API are reported using standard HTTP
-Status Codes. A guide to the generic codes returned by CouchDB are
+Errors when accessing the Cloudant API are reported using standard HTTP
+Status Codes. A guide to the generic codes returned by Cloudant are
 provided in :ref:`errors`.
 
-When accessing specific areas of the CouchDB API, specific information
+When accessing specific areas of the Cloudant API, specific information
 and examples on the HTTP methods and request, JSON structures, and error
 codes are provided. For a guide to the different areas of the API, see
 :ref:`api-overview`.
@@ -49,12 +49,12 @@ codes are provided. For a guide to the different areas of the API, see
 Request Format and Responses
 ============================
 
-CouchDB supports the following HTTP request methods:
+Cloudant supports the following HTTP request methods:
 
 -  ``GET``
 
    Request the specified item. As with normal HTTP requests, the format
-   of the URL defines what is returned. With CouchDB this can include
+   of the URL defines what is returned. With Cloudant this can include
    static items, database documents, and configuration and statistical
    information. In most cases the information is returned in the form of
    a JSON document.
@@ -66,13 +66,13 @@ CouchDB supports the following HTTP request methods:
 
 -  ``POST``
 
-   Upload data. Within CouchDB ``POST`` is used to set values, including
+   Upload data. Within Cloudant ``POST`` is used to set values, including
    uploading documents, setting document values, and starting certain
    administration commands.
 
 -  ``PUT``
 
-   Used to put a specified resource. In CouchDB ``PUT`` is used to
+   Used to put a specified resource. In Cloudant ``PUT`` is used to
    create new objects, including databases, documents, views and design
    documents.
 
@@ -97,14 +97,14 @@ supported HTTP methods. For example:
     }
           
 
-The CouchDB design document API and the functions when returning HTML
+The Cloudant design document API and the functions when returning HTML
 (for example as part of a show or list) enables you to include custom
 HTTP headers through the ``headers`` block of the return object.
 
 HTTP Headers
 ============
 
-Because CouchDB uses HTTP for all communication, you need to ensure that
+Because Cloudant uses HTTP for all communication, you need to ensure that
 the correct HTTP headers are supplied (and processed on retrieval) so
 that you get the right format and encoding. Different environments and
 clients will be more or less strict on the effect of these HTTP headers
@@ -138,11 +138,11 @@ Request Headers
    are supported. If the ``Accept`` header is not supplied, then the
    ``*/*`` MIME type is assumed (i.e. client accepts all formats).
 
-   The use of ``Accept`` in queries for CouchDB is not required, but is
+   The use of ``Accept`` in queries for Cloudant is not required, but is
    highly recommended as it helps to ensure that the data returned can
    be processed by the client.
 
-   If you specify a data type using the ``Accept`` header, CouchDB will
+   If you specify a data type using the ``Accept`` header, Cloudant will
    honor the specified type in the ``Content-type`` header field
    returned. For example, if you explicitly request ``application/json``
    in the ``Accept`` of a request, the returned HTTP headers will use
@@ -154,14 +154,14 @@ Request Headers
    .. code-block:: http
 
        GET /recipes HTTP/1.1
-       Host: couchdb:5984
+       Host: USERNAME.cloudant.com
        Accept: */*
 
    The returned headers are:
 
    .. code-block:: http
 
-       Server: CouchDB/1.0.1 (Erlang OTP/R13B)
+       Server: Cloudant/1.0.1 (Erlang OTP/R13B)
        Date: Thu, 13 Jan 2011 13:39:34 GMT
        Content-Type: text/plain;charset=utf-8
        Content-Length: 227
@@ -175,14 +175,14 @@ Request Headers
    .. code-block:: http
 
        GET /recipes HTTP/1.1
-       Host: couchdb:5984
+       Host: USERNAME.cloudant.com
        Accept: application/json
 
    The headers returned include the ``application/json`` content type:
 
    .. code-block:: http
 
-       Server: CouchDB/|version| (Erlang OTP/R13B)
+       Server: Cloudant/|version| (Erlang OTP/R13B)
        Date: Thu, 13 Jan 2011 13:40:11 GMT
        Content-Type: application/json
        Content-Length: 227
@@ -193,8 +193,8 @@ Response Headers
 
 Response headers are returned by the server when sending back content
 and include a number of different header fields, many of which are
-standard HTTP response header and have no significance to CouchDB
-operation. The list of response headers important to CouchDB are listed
+standard HTTP response header and have no significance to Cloudant
+operation. The list of response headers important to Cloudant are listed
 below.
 
 -  ``Content-type``
@@ -208,7 +208,7 @@ below.
 
    The cache control HTTP response header provides a suggestion for
    client caching mechanisms on how to treat the returned information.
-   CouchDB typically returns the ``must-revalidate``, which indicates
+   Cloudant typically returns the ``must-revalidate``, which indicates
    that the information should be revalidated if possible. This is used
    to ensure that the dynamic nature of the content is correctly
    updated.
@@ -239,7 +239,7 @@ below.
 JSON Basics
 ===========
 
-The majority of requests and responses to CouchDB use the JavaScript
+The majority of requests and responses to Cloudant use the JavaScript
 Object Notation (JSON) for formatting the content and structure of the
 data and responses.
 
@@ -247,7 +247,7 @@ JSON is used because it is the simplest and easiest to use solution for
 working with data within a web browser, as JSON structures can be
 evaluated and used as JavaScript objects within the web browser
 environment. JSON also integrates with the server-side JavaScript used
-within CouchDB.
+within Cloudant.
 
 JSON supports the same basic types as supported by JavaScript, these
 are:
@@ -288,8 +288,8 @@ are:
        }
            
 
-   In CouchDB, the JSON object is used to represent a variety of
-   structures, including the main CouchDB document.
+   In Cloudant, the JSON object is used to represent a variety of
+   structures, including the main Cloudant document.
 
 Parsing JSON into a JavaScript object is supported through the
 ``JSON.parse()`` function in JavaScript, or through various libraries that
@@ -299,7 +299,7 @@ languages, including Perl, Python, Ruby, Erlang and others.
 
 .. warning::
    Care should be taken to ensure that your JSON structures are
-   valid, invalid structures will cause CouchDB to return an HTTP status code
+   valid, invalid structures will cause Cloudant to return an HTTP status code
    of 500 (server error).
 
 .. _errors:
@@ -307,11 +307,11 @@ languages, including Perl, Python, Ruby, Erlang and others.
 HTTP Status Codes
 =================
 
-With the interface to CouchDB working through HTTP, error codes and
+With the interface to Cloudant working through HTTP, error codes and
 statuses are reported using a combination of the HTTP status code
 number, and corresponding data in the body of the response data.
 
-A list of the error codes returned by CouchDB, and generic descriptions
+A list of the error codes returned by Cloudant, and generic descriptions
 of the related errors are provided below. The meaning of different
 status codes for specific request types are provided in the
 corresponding API call reference.
@@ -406,10 +406,10 @@ HTTP Range Requests
 
 HTTP allows you to specify byte ranges for requests. This allows the
 implementation of resumable downloads and skippable audio and video
-streams alike. This is available for all attachments inside CouchDB.
+streams alike. This is available for all attachments inside Cloudant.
 
 This is just a real quick run through how this looks under the hood.
-Usually, you will have larger binary files to serve from CouchDB, like
+Usually, you will have larger binary files to serve from Cloudant, like
 MP3s and videos, but to make things a little more obvious, I use a text
 file here (Note that I use the ``application/octet-stream`` Content-Type
 instead of ``text/plain``).
@@ -419,7 +419,7 @@ instead of ``text/plain``).
     shell> cat file.txt
     My hovercraft is full of eels!
 
-Now let's store this text file as an attachment in CouchDB. First, we
+Now let's store this text file as an attachment in Cloudant. First, we
 create a database:
 
 .. code-block:: bash
@@ -454,10 +454,10 @@ HTTP supports many ways to specify single and even multiple byte
 ranges. Read all about it in `RFC 2616`_.
 
 .. note::
-   Databases that have been created with CouchDB 1.0.2 or earlier will
+   Databases that have been created with Cloudant 1.0.2 or earlier will
    support range requests in |version|, but they are using a less-optimal
    algorithm. If you plan to make heavy use of this feature, make sure
-   to compact your database with CouchDB |version| to take advantage of a
+   to compact your database with Cloudant |version| to take advantage of a
    better algorithm to find byte ranges.
 
 .. _RFC 2616: http://tools.ietf.org/html/rfc2616#section-14.27

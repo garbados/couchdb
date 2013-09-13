@@ -17,7 +17,7 @@ Database Methods
 ================
 
 The Database methods provide an interface to an entire database withing
-CouchDB. These are database, rather than document, level requests.
+Cloudant. These are database, rather than document, level requests.
 
 A list of the available methods and URL paths are provided below:
 
@@ -119,7 +119,7 @@ the information for the database ``recipe``:
 
 .. code-block:: http
 
-    GET http://couchdb:5984/recipes
+    GET http://USERNAME.cloudant.com/recipes
     Accept: application/json
 
 The JSON response contains meta information about the database. A sample
@@ -210,7 +210,7 @@ To create the database ``recipes``:
 
 .. code-block:: http
 
-    PUT http://couchdb:5984/recipes
+    PUT http://USERNAME.cloudant.com/recipes
     Content-Type: application/json
 
 The returned content contains the JSON status:
@@ -247,7 +247,7 @@ To delete the database ``recipes`` you would send the request:
 
 .. code-block:: http
 
-    DELETE http://couchdb:5984/recipes
+    DELETE http://USERNAME.cloudant.com/recipes
     Content-Type: application/json
 
 If successful, the returned JSON will indicate success
@@ -344,7 +344,7 @@ query argument.
 
    .. code-block:: http
 
-       DELETE http://couchdb:5984/recipes/_changes
+       DELETE http://USERNAME.cloudant.com/recipes/_changes
        Content-Type: application/json
 
    Will get all of the changes in the database. You can request a
@@ -463,7 +463,7 @@ disk database file by performing the following operations:
    parameter. See :ref:`api-get-db`.
 
 Compaction can only be requested on an individual database; you cannot
-compact all the databases for a CouchDB instance. The compaction process
+compact all the databases for a Cloudant instance. The compaction process
 runs as a background process.
 
 You can determine if the compaction process is operating on a database
@@ -502,10 +502,10 @@ document:
 
 .. code-block:: http
 
-    POST http://couchdb:5984/recipes/_compact/recipes
+    POST http://USERNAME.cloudant.com/recipes/_compact/recipes
     Content-Type: application/json
 
-CouchDB will immediately return with a status indicating that the
+Cloudant will immediately return with a status indicating that the
 compaction request has been received (HTTP status code 202):
 
 .. code-block:: javascript
@@ -527,7 +527,7 @@ Cleans up the cached view output on disk for a given view. For example:
 
 .. code-block:: http
 
-    POST http://couchdb:5984/recipes/_view_cleanup
+    POST http://USERNAME.cloudant.com/recipes/_view_cleanup
     Content-Type: application/json
 
 If the request is successful, a basic status message us returned:
@@ -563,11 +563,11 @@ For example, to commit all the changes to disk for the database
 
 .. code-block:: http
 
-    POST http://couchdb:5984/recipes/_ensure_full_commit
+    POST http://USERNAME.cloudant.com/recipes/_ensure_full_commit
     Content-Type: application/json
 
 This returns a status message, containing the success message and the
-timestamp for when the CouchDB instance was started:
+timestamp for when the Cloudant instance was started:
 
 .. code-block:: javascript
 
@@ -659,7 +659,7 @@ documents created, here with the combination and their revision IDs:
 
 .. code-block:: http
 
-    POST http://couchdb:5984/recipes/_bulk_docs
+    POST http://USERNAME.cloudant.com/recipes/_bulk_docs
     Content-Type: application/json
 
     [
@@ -694,7 +694,7 @@ For example, you could send the following request:
 
 .. code-block:: http
 
-    POST http://couchdb:5984/recipes/_bulk_docs
+    POST http://USERNAME.cloudant.com/recipes/_bulk_docs
     Content-Type: application/json
 
     {
@@ -761,14 +761,14 @@ bulk must be handled separately; see :ref:`bulk-validation`.
 Bulk Documents Transaction Semantics
 ------------------------------------
 
-CouchDB supports two different modes for updating (or inserting)
+Cloudant supports two different modes for updating (or inserting)
 documents using the bulk documentation system. Each mode affects both
 the state of the documents in the event of system failure, and the level
 of conflict checking performed on each document. The two modes are:
 
 -  ``non-atomic``
 
-   The default mode is non-atomic, that is, CouchDB will only guarantee
+   The default mode is non-atomic, that is, Cloudant will only guarantee
    that some of the documents will be saved when you send the request.
    The response will contain the list of documents successfully inserted
    or updated during the process. In the event of a crash, some of the
@@ -950,7 +950,7 @@ supplied in the JSON request. For example:
 
 .. code-block:: http
 
-    POST http://couchdb:5984/recipes/_temp_view
+    POST http://USERNAME.cloudant.com/recipes/_temp_view
     Content-Type: application/json
 
     {
@@ -1002,7 +1002,7 @@ Occasionally something into ends up in your database that should never have
 written to it, like a password or private key. Purge can help you here.
 
 A database purge permanently removes the references to deleted documents
-from the database. Deleting a document within CouchDB does not actually
+from the database. Deleting a document within Cloudant does not actually
 remove the document from the database, instead, the document is marked as
 a deleted (and a new revision is created). This is to ensure that
 deleted documents are replicated to other databases as having been
@@ -1030,7 +1030,7 @@ of the document IDs that you want to purge. For example:
 
 .. code-block:: http
 
-    POST http://couchdb:5984/recipes/_purge
+    POST http://USERNAME.cloudant.com/recipes/_purge
     Content-Type: application/json
 
     {
@@ -1208,7 +1208,7 @@ revision. For example, the request:
 
 .. code-block:: http
 
-    GET http://couchdb:5984/recipes/_all_docs
+    GET http://USERNAME.cloudant.com/recipes/_all_docs
     Accept: application/json
 
 Returns the following structure:
@@ -1267,7 +1267,7 @@ array to a ``keys`` object. For example:
 
 .. code-block:: http
 
-    POST http://couchdb:5984/recipes/_all_docs
+    POST http://USERNAME.cloudant.com/recipes/_all_docs
     User-Agent: MyApp/0.1 libwww-perl/5.837
 
     {
@@ -1386,7 +1386,7 @@ security object for the ``recipes`` database:
 
 .. code-block:: javascript
 
-    PUT http://couchdb:5984/recipes/_security
+    PUT http://USERNAME.cloudant.com/recipes/_security
     Content-Type: application/json
 
     {
@@ -1429,7 +1429,7 @@ For example to get the current limit:
 
 .. code-block:: http
 
-    GET http://couchdb:5984/recipes/_revs_limit
+    GET http://USERNAME.cloudant.com/recipes/_revs_limit
     Content-Type: application/json
 
 The returned information is the current setting as a numerical scalar:
@@ -1447,7 +1447,7 @@ The returned information is the current setting as a numerical scalar:
 * **Admin Privileges Required**: no
 
 Sets the maximum number of document revisions that will be tracked by
-CouchDB, even after compaction has occurred. You can set the revision
+Cloudant, even after compaction has occurred. You can set the revision
 limit on a database by using ``PUT`` with a scalar integer of the limit
 that you want to set as the request body.
 
@@ -1455,7 +1455,7 @@ For example to set the revs limit to 100 for the ``recipes`` database:
 
 .. code-block:: http
 
-    PUT http://couchdb:5984/recipes/_revs_limit
+    PUT http://USERNAME.cloudant.com/recipes/_revs_limit
     Content-Type: application/json
 
     100

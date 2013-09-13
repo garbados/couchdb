@@ -16,7 +16,7 @@ API Reference
 =============
 
 The components of the API URL path help determine the part of the
-CouchDB server that is being accessed. The result is the structure of
+Cloudant server that is being accessed. The result is the structure of
 the URL request both identifies and effectively describes the area of
 the database you are accessing.
 
@@ -26,7 +26,7 @@ slash.
 As a general rule, URL components and JSON fields starting with the
 ``_`` (underscore) character represent a special component or entity
 within the server or returned object. For example, the URL fragment
-``/_all_dbs`` gets a list of all of the databases in a CouchDB instance.
+``/_all_dbs`` gets a list of all of the databases in a Cloudant instance.
 
 This reference is structured according to the URL structure, as below.
 

@@ -16,7 +16,7 @@
 Document Methods
 ================
 
-The CouchDB API Server Document methods detail how to create, read,
+The Cloudant API Server Document methods detail how to create, read,
 update and delete documents within a database.
 
 A list of the available methods and URL paths are provided below:
@@ -80,7 +80,7 @@ the following request:
 
 .. code-block:: http
 
-    POST http://couchdb:5984/recipes/
+    POST http://USERNAME.cloudant.com/recipes/
     Content-Type: application/json
 
     {
@@ -109,7 +109,7 @@ document with the ID ``FishStew``:
 
 .. code-block:: http
 
-    POST http://couchdb:5984/recipes/
+    POST http://USERNAME.cloudant.com/recipes/
     Content-Type: application/json
 
     {
@@ -138,9 +138,9 @@ ID, and status message:
 UUID generation algorithms
 --------------------------
 
-CouchDB supports a number of different UUID generation algorithms for use
+Cloudant supports a number of different UUID generation algorithms for use
 in situations where a user-specified UUID does not make sense. These
-can be set simply by `PUT http://couchdb:5984/_config/uuids/algorithm`.
+can be set simply by `PUT http://USERNAME.cloudant.com/_config/uuids/algorithm`.
 
 
 +---------------+---------------------+------------------------------------+
@@ -187,7 +187,7 @@ the risk of the documents not being stored in the event of a failure,
 since the documents are not written to disk immediately.
 
 To use the batched mode, append the ``batch=ok`` query argument to the
-URL of the ``PUT`` or ``POST`` request. The CouchDB server will respond
+URL of the ``PUT`` or ``POST`` request. The Cloudant server will respond
 with a 202 HTTP response code immediately.
 
 Including Attachments
@@ -296,7 +296,7 @@ following request:
 
 .. code-block:: http
 
-    GET http://couchdb:5984/recipes/FishStew
+    GET http://USERNAME.cloudant.com/recipes/FishStew
     Content-Type: application/json
     Accept: application/json
 
@@ -364,7 +364,7 @@ the ``revs=true`` parameter to the request URL. For example:
 
 .. code-block:: http
 
-    GET http://couchdb:5984/recipes/FishStew?revs=true
+    GET http://USERNAME.cloudant.com/recipes/FishStew?revs=true
     Accept: application/json
 
 The returned JSON structure includes the original document, including a
@@ -390,7 +390,7 @@ The returned JSON structure includes the original document, including a
 
 * **_id** (optional): Document ID
 * **_rev** (optional): Revision ID (when updating an existing document)
-* **_revisions**: CouchDB Document Revisions
+* **_revisions**: Cloudant Document Revisions
 
   * **ids** [array]: Array of valid revision IDs, in reverse order
     (latest first)
@@ -404,7 +404,7 @@ document by supplying the ``revs_info`` argument to the query:
 
 .. code-block:: http
 
-    GET http://couchdb:5984/recipes/FishStew?revs_info=true
+    GET http://USERNAME.cloudant.com/recipes/FishStew?revs_info=true
     Accept: application/json
 
 This returns extended revision information, including the availability
@@ -436,7 +436,7 @@ and status of each revision:
 
 * **_id** (optional): Document ID
 * **_rev** (optional): Revision ID (when updating an existing document)
-* **_revs_info** [array]: CouchDB Document Extended Revision Info
+* **_revs_info** [array]: Cloudant Document Extended Revision Info
 
   * **rev**: Full revision string
   * **status**: Status of the revision
@@ -449,7 +449,7 @@ specify the full revision number:
 
 .. code-block:: http
 
-    GET http://couchdb:5984/recipes/FishStew?rev=2-7c4740b4dcf26683e941d6641c00c39d
+    GET http://USERNAME.cloudant.com/recipes/FishStew?rev=2-7c4740b4dcf26683e941d6641c00c39d
     Accept: application/json
 
 The specified revision of the document will be returned, including a
@@ -506,7 +506,7 @@ example, a simple ``HEAD`` request:
 
 .. code-block:: http
 
-    HEAD http://couchdb:5984/recipes/FishStew
+    HEAD http://USERNAME.cloudant.com/recipes/FishStew
     Content-Type: application/json
         
 
@@ -515,7 +515,7 @@ Returns the following HTTP Headers:
 .. code-block:: javascript
 
     HTTP/1.1 200 OK
-    Server: CouchDB/1.0.1 (Erlang OTP/R13B)
+    Server: Cloudant/1.0.1 (Erlang OTP/R13B)
     Etag: "7-a19a1a5ecd946dad70e85233ba039ab2"
     Date: Fri, 05 Nov 2010 14:54:43 GMT
     Content-Type: text/plain;charset=utf-8
@@ -534,7 +534,7 @@ returned. Note that the current revision is not returned when the
 .. code-block:: http
 
     HTTP/1.1 200 OK
-    Server: CouchDB/1.0.1 (Erlang OTP/R13B)
+    Server: Cloudant/1.0.1 (Erlang OTP/R13B)
     Date: Fri, 05 Nov 2010 14:57:16 GMT
     Content-Type: text/plain;charset=utf-8
     Content-Length: 609
@@ -585,7 +585,7 @@ following request:
 
 .. code-block:: http
 
-    PUT http://couchdb:5984/recipes/FishStew
+    PUT http://USERNAME.cloudant.com/recipes/FishStew
     Content-Type: application/json
 
     {
@@ -612,7 +612,7 @@ number within the ``_rev`` parameter. For example:
 
 .. code-block:: http
 
-    PUT http://couchdb:5984/recipes/FishStew
+    PUT http://USERNAME.cloudant.com/recipes/FishStew
     Content-Type: application/json
 
     {
@@ -627,7 +627,7 @@ Alternatively, you can supply the current revision number in the
 
 .. code-block:: http
 
-    PUT http://couchdb:5984/recipes/FishStew
+    PUT http://USERNAME.cloudant.com/recipes/FishStew
     If-Match: 2-d953b18035b76f2a5b1d1d93f25d3aea
     Content-Type: application/json
 
@@ -685,14 +685,14 @@ specify the revision:
 
 .. code-block:: http
 
-    DELETE http://couchdb:5984/recipes/FishStew?rev=3-a1a9b39ee3cc39181b796a69cb48521c
+    DELETE http://USERNAME.cloudant.com/recipes/FishStew?rev=3-a1a9b39ee3cc39181b796a69cb48521c
     Content-Type: application/json
 
 Alternatively, you can use ETags with the ``If-Match`` field:
 
 .. code-block:: http
 
-    DELETE http://couchdb:5984/recipes/FishStew
+    DELETE http://USERNAME.cloudant.com/recipes/FishStew
     If-Match: 3-a1a9b39ee3cc39181b796a69cb48521c
     Content-Type: application/json
         
@@ -757,7 +757,7 @@ specifying the current document and target document:
 
 .. code-block:: http
 
-    COPY http://couchdb:5984/recipes/FishStew
+    COPY http://USERNAME.cloudant.com/recipes/FishStew
     Content-Type: application/json
     Destination: IrishFishStew
 
@@ -780,7 +780,7 @@ string:
 
 .. code-block:: http
 
-    COPY http://couchdb:5984/recipes/FishStew?rev=5-acfd32d233f07cea4b4f37daaacc0082
+    COPY http://USERNAME.cloudant.com/recipes/FishStew?rev=5-acfd32d233f07cea4b4f37daaacc0082
     Content-Type: application/json
     Destination: IrishFishStew
 
@@ -796,7 +796,7 @@ string for the target document, using the ``rev`` parameter to the
 
 .. code-block:: http
 
-    COPY http://couchdb:5984/recipes/FishStew
+    COPY http://USERNAME.cloudant.com/recipes/FishStew
     Content-Type: application/json
     Destination: IrishFishStew?rev=1-9c65296036141e575d32ba9c034dd3ee
 
@@ -877,7 +877,7 @@ request:
 
 .. code-block:: http
 
-    PUT http://couchdb:5984/recipes/FishStew/basic?rev=8-a94cb7e50ded1e06f943be5bfbddf8ca
+    PUT http://USERNAME.cloudant.com/recipes/FishStew/basic?rev=8-a94cb7e50ded1e06f943be5bfbddf8ca
     Content-Length: 10
     Content-Type: text/plain
 
@@ -887,7 +887,7 @@ Or by using the ``If-Match`` HTTP header:
 
 .. code-block:: http
 
-    PUT http://couchdb:5984/recipes/FishStew/basic
+    PUT http://USERNAME.cloudant.com/recipes/FishStew/basic
     If-Match: 8-a94cb7e50ded1e06f943be5bfbddf8ca
     Content-Length: 10
     Content-Type: text/plain
@@ -954,7 +954,7 @@ For example to delete the attachment ``basic`` from the recipe
 
 .. code-block:: http
 
-    DELETE http://couchdb:5984/recipes/FishStew/basic?rev=9-247bb19a41bfd9bfdaf5ee6e2e05be74
+    DELETE http://USERNAME.cloudant.com/recipes/FishStew/basic?rev=9-247bb19a41bfd9bfdaf5ee6e2e05be74
     Content-Type: application/json
 
         

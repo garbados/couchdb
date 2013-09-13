@@ -14,18 +14,18 @@
 Introduction
 ============
 
-There are two interfaces to CouchDB, the built-in Futon web-based
-interface and the CouchDB API accessed through the HTTP REST interface.
-The former is the simplest way to view and monitor your CouchDB
+There are two interfaces to Cloudant, the built-in Futon web-based
+interface and the Cloudant API accessed through the HTTP REST interface.
+The former is the simplest way to view and monitor your Cloudant
 installation and perform a number of basic database and system
 operations. More information on using the Futon interface can be found
 in :ref:`using-futon`.
 
-The primary way to interact with the CouchDB API is to use a client
+The primary way to interact with the Cloudant API is to use a client
 library or other interface that provides access to the underlying
 functionality through your chosen language or platform. However, since
 the API is supported through HTTP REST, you can interact with your
-CouchDB with any solution that supports the HTTP protocol.
+Cloudant with any solution that supports the HTTP protocol.
 
 There are a number of different tools that talk the HTTP protocol and
 allow you to set and configure the necessary information. One tool for
@@ -37,7 +37,7 @@ this that allows for access from the command-line is ``curl``. See
 Using Futon
 ===========
 
-Futon is a native web-based interface built into CouchDB. It provides a
+Futon is a native web-based interface built into Cloudant. It provides a
 basic interface to the majority of the functionality, including the
 ability to create, update, delete and view documents and views, provides
 access to the configuration parameters, and an interface for initiating
@@ -66,7 +66,7 @@ The main sections are:
 
 -  Configuration
 
-   An interface into the configuration of your CouchDB installation. The
+   An interface into the configuration of your Cloudant installation. The
    interface allows you to edit the different configurable parameters.
    For more details on configuration, see :ref:`configuring`.
 
@@ -86,13 +86,13 @@ The main sections are:
 -  Verify Installation
 
    The Verify Installation allows you to check whether all of the
-   components of your CouchDB installation are correctly installed.
+   components of your Cloudant installation are correctly installed.
 
 -  Test Suite
 
    The Test Suite section allows you to run the built-in test suite.
    This executes a number of test routines entirely within your browser
-   to test the API and functionality of your CouchDB installation. If
+   to test the API and functionality of your Cloudant installation. If
    you select this page, you can run the tests by using the Run All
    button. This will execute all the tests, which may take some time.
 
@@ -212,7 +212,7 @@ Using ``curl``
 The ``curl`` utility is a command line tool available on Unix, Linux,
 Mac OS X and Windows and many other platforms. ``curl`` provides easy
 access to the HTTP protocol (among others) directly from the
-command-line and is therefore an ideal way of interacting with CouchDB
+command-line and is therefore an ideal way of interacting with Cloudant
 over the HTTP REST API.
 
 For simple ``GET`` requests you can supply the URL of the request. For
@@ -238,7 +238,7 @@ clarity):
 
    .. code-block:: bash
 
-      shell> curl 'http://couchdb:5984/_uuids?count=5'
+      shell> curl 'http://USERNAME.cloudant.com/_uuids?count=5'
 
 You can explicitly set the HTTP command using the ``-X`` command line
 option. For example, when creating a database, you set the name of the

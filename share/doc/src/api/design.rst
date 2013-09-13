@@ -16,10 +16,10 @@
 Design Document Methods
 =======================
 
-In CouchDB, design documents provide the main interface for building a
-CouchDB application. The design document defines the views used to
-extract information from CouchDB through one or more views. Design
-documents are created within your CouchDB instance in the same way as
+In Cloudant, design documents provide the main interface for building a
+Cloudant application. The design document defines the views used to
+extract information from Cloudant through one or more views. Design
+documents are created within your Cloudant instance in the same way as
 you create database documents, but the content and definition of the
 documents is different. Design Documents are named using an ID defined
 with the design document URL path, and this URL can then be used to
@@ -72,7 +72,7 @@ would send the following request:
 
 .. code-block:: http
 
-    GET http://couchdb:5984/recipes/_design/recipes
+    GET http://USERNAME.cloudant.com/recipes/_design/recipes
     Content-Type: application/json
 
 The returned string will be the JSON of the design document:
@@ -156,7 +156,7 @@ For example:
 
 .. code-block:: http
 
-    DELETE http://couchdb:5984/recipes/_design/recipes?rev=2-ac58d589b37d01c00f45a4418c5a15a8
+    DELETE http://USERNAME.cloudant.com/recipes/_design/recipes?rev=2-ac58d589b37d01c00f45a4418c5a15a8
     Content-Type: application/json
 
 The response contains the delete document ID and revision:
@@ -206,7 +206,7 @@ specify the base document and target document:
 
 .. code-block:: http
 
-    COPY http://couchdb:5984/recipes/_design/recipes
+    COPY http://USERNAME.cloudant.com/recipes/_design/recipes
     Content-Type: application/json
     Destination: /recipes/_design/recipelist
 
@@ -234,7 +234,7 @@ string:
 
 .. code-block:: http
 
-    COPY http://couchdb:5984/recipes/_design/recipes?rev=1-e23b9e942c19e9fb10ff1fde2e50e0f5
+    COPY http://USERNAME.cloudant.com/recipes/_design/recipes?rev=1-e23b9e942c19e9fb10ff1fde2e50e0f5
     Content-Type: application/json
     Destination: recipes/_design/recipelist
 
@@ -250,7 +250,7 @@ string for the target document, using the ``rev`` parameter to the
 
 .. code-block:: http
 
-    COPY http://couchdb:5984/recipes/_design/recipes
+    COPY http://USERNAME.cloudant.com/recipes/_design/recipes
     Content-Type: application/json
     Destination: recipes/_design/recipelist?rev=1-9c65296036141e575d32ba9c034dd3ee
 
@@ -322,7 +322,7 @@ request:
 
 .. code-block:: http
 
-    PUT http://couchdb:5984/recipes/_design/recipes/view.css?rev=7-f7114d4d81124b223283f3e89eee043e
+    PUT http://USERNAME.cloudant.com/recipes/_design/recipes/view.css?rev=7-f7114d4d81124b223283f3e89eee043e
     Content-Length: 39
     Content-Type: text/plain
 
@@ -334,7 +334,7 @@ Or by using the ``If-Match`` HTTP header:
 
 .. code-block:: http
 
-    PUT http://couchdb:5984/recipes/FishStew/basic
+    PUT http://USERNAME.cloudant.com/recipes/FishStew/basic
     If-Match: 7-f7114d4d81124b223283f3e89eee043e
     Content-Length: 39
     Content-Type: text/plain
@@ -395,7 +395,7 @@ document ``recipes``:
 
 .. code-block:: http
 
-    DELETE http://couchdb:5984/recipes/_design/recipes/view.css?rev=9-3db559f13a845c7751d407404cdeaa4a
+    DELETE http://USERNAME.cloudant.com/recipes/_design/recipes/view.css?rev=9-3db559f13a845c7751d407404cdeaa4a
 
 The returned JSON contains the updated revision information for the
 parent document:
@@ -424,7 +424,7 @@ For example, to get the information for the ``recipes`` design document:
 
 .. code-block:: http
 
-    GET http://couchdb:5984/recipes/_design/recipes/_info
+    GET http://USERNAME.cloudant.com/recipes/_design/recipes/_info
     Content-Type: application/json
 
 This returns the following JSON structure:
@@ -641,7 +641,7 @@ completely eliminate, these issues. These include:
    database and then access the view to force the corresponding view
    index to be updated. See :ref:`api-changes` for more information.
 
--  Use a monitor with the ``update_notification`` section of the CouchDB
+-  Use a monitor with the ``update_notification`` section of the Cloudant
    configuration file to monitor for changes to your database, and
    trigger a view query to force the view to be updated. For more
    information, see :ref:`update-notifications`.
@@ -661,7 +661,7 @@ For example, to access the existing stale view ``by_recipe`` in the
 
 .. code-block:: text
 
-    http://couchdb:5984/recipes/_design/recipes/_view/by_recipe?stale=ok
+    http://USERNAME.cloudant.com/recipes/_design/recipes/_view/by_recipe?stale=ok
 
 Accessing a stale view:
 
@@ -764,7 +764,7 @@ content. For example the request
 
 .. code-block:: http
 
-    GET http://couchdb:5984/recipes/_design/recipes/_view/by_title?limit=5&descending=true
+    GET http://USERNAME.cloudant.com/recipes/_design/recipes/_view/by_title?limit=5&descending=true
     Accept: application/json
     Content-Type: application/json
 
@@ -825,7 +825,7 @@ query:
 
 .. code-block:: http
 
-    GET http://couchdb:5984/recipes/_design/recipes/_view/by_ingredient?startkey=%22carrots%22&endkey=%22egg%22
+    GET http://USERNAME.cloudant.com/recipes/_design/recipes/_view/by_ingredient?startkey=%22carrots%22&endkey=%22egg%22
     Accept: application/json
     Content-Type: application/json
 
@@ -835,7 +835,7 @@ Will operate correctly when listing all the matching entries between
 
 .. code-block:: http
 
-    GET http://couchdb:5984/recipes/_design/recipes/_view/by_ingredient?descending=true&startkey=%22carrots%22&endkey=%22egg%22
+    GET http://USERNAME.cloudant.com/recipes/_design/recipes/_view/by_ingredient?descending=true&startkey=%22carrots%22&endkey=%22egg%22
     Accept: application/json
     Content-Type: application/json
 
@@ -860,7 +860,7 @@ keys. Changing the previous example to:
 
 .. code-block:: http
 
-    GET http://couchdb:5984/recipes/_design/recipes/_view/by_ingredient?descending=true&startkey=%22egg%22&endkey=%22carrots%22
+    GET http://USERNAME.cloudant.com/recipes/_design/recipes/_view/by_ingredient?descending=true&startkey=%22egg%22&endkey=%22carrots%22
     Accept: application/json
     Content-Type: application/json
 
@@ -1012,7 +1012,7 @@ for the view matches either “claret” or “clear apple cider” :
 
 .. code-block:: http
 
-    POST http://couchdb:5984/recipes/_design/recipes/_view/by_ingredient
+    POST http://USERNAME.cloudant.com/recipes/_design/recipes/_view/by_ingredient
     Content-Type: application/json
 
     {
@@ -1062,7 +1062,7 @@ For example, sending the following request for ingredients matching
 
 .. code-block:: http
 
-    POST http://couchdb:5984/recipes/_design/recipes/_view/by_ingredient?include_docs=true
+    POST http://USERNAME.cloudant.com/recipes/_design/recipes/_view/by_ingredient?include_docs=true
     Content-Type: application/json
 
     {

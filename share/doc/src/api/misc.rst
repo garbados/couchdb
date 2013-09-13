@@ -16,8 +16,8 @@
 Miscellaneous Methods
 =====================
 
-The CouchDB Miscellaneous interface provides the basic interface to a
-CouchDB server for obtaining CouchDB information and getting and setting
+The Cloudant Miscellaneous interface provides the basic interface to a
+Cloudant server for obtaining Cloudant information and getting and setting
 configuration information.
 
 A list of the available methods and URL paths are provided below:
@@ -43,7 +43,7 @@ A list of the available methods and URL paths are provided below:
 +--------+-------------------------+-------------------------------------------+
 | GET    | /_stats                 |  Return server statistics                 |
 +--------+-------------------------+-------------------------------------------+
-| GET    | /_utils                 |  CouchDB administration interface (Futon) |
+| GET    | /_utils                 |  Cloudant administration interface (Futon) |
 +--------+-------------------------+-------------------------------------------+
 | GET    | /_uuids                 |  Get generated UUIDs from the server      |
 +--------+-------------------------+-------------------------------------------+
@@ -62,7 +62,7 @@ A list of the available methods and URL paths are provided below:
   * **200**:
     Request completed successfully.
 
-Accessing the root of a CouchDB instance returns meta information about
+Accessing the root of a Cloudant instance returns meta information about
 the instance. The response is a JSON structure containing information
 about the server, including a welcome message and the version of the
 server.
@@ -135,12 +135,12 @@ For operation type, valid values include:
   * **200**:
     Request completed successfully.
 
-Returns a list of all the databases in the CouchDB instance. For
+Returns a list of all the databases in the Cloudant instance. For
 example:
 
 .. code-block:: http
 
-    GET http://couchdb:5984/_all_dbs
+    GET http://USERNAME.cloudant.com/_all_dbs
     Accept: application/json
 
 The return is a JSON array:
@@ -177,14 +177,14 @@ The return is a JSON array:
 
   * **Argument**: timeout
 
-    * **Descroption**: Number of seconds until CouchDB closes the connection.
+    * **Descroption**: Number of seconds until Cloudant closes the connection.
     * **Optional**: yes
     * **Type**: numeric
     * **Default**: 60
 
   * **Argument**: heartbeat
 
-    * **Descroption**: Whether CouchDB will send a newline character (``\n``) on ``timeout``.
+    * **Descroption**: Whether Cloudant will send a newline character (``\n``) on ``timeout``.
     * **Optional**: yes
     * **Type**: boolean
     * **Default**: true
@@ -194,7 +194,7 @@ The return is a JSON array:
   * **200**
     Request completed successfully.
 
-Returns a list of all database events in the CouchDB instance.
+Returns a list of all database events in the Cloudant instance.
 
 A database event is one of `created`, `updated`, `deleted`.
 
@@ -202,7 +202,7 @@ For example:
 
 .. code-block:: http
 
-    GET http://couchdb:5984/_db_events?feed=continuous
+    GET http://USERNAME.cloudant.com/_db_events?feed=continuous
     Accept: application/json
 
 .. code-block:: javascript
@@ -243,8 +243,8 @@ For example:
   * **200**:
     Request completed successfully.
 
-Gets the CouchDB log, equivalent to accessing the local log file of the
-corresponding CouchDB instance.
+Gets the Cloudant log, equivalent to accessing the local log file of the
+corresponding Cloudant instance.
 
 When you request the log, the response is returned as plain (UTF-8)
 text, with an HTTP ``Content-type`` header as ``text/plain``.
@@ -253,7 +253,7 @@ For example, the request:
 
 .. code-block:: http
 
-    GET http://couchdb:5984/_log
+    GET http://USERNAME.cloudant.com/_log
     Accept: */*
 
 The raw text is returned:
@@ -343,7 +343,7 @@ deleted (if they exist) on the destination database.
 
 Replication can be described as either push or pull replication:
 
--  *Pull replication* is where the ``source`` is the remote CouchDB
+-  *Pull replication* is where the ``source`` is the remote Cloudant
    instance, and the ``destination`` is the local database.
 
    Pull replication is the most useful solution to use if your source
@@ -358,21 +358,21 @@ Replication can be described as either push or pull replication:
 Specifying the Source and Target Database
 -----------------------------------------
 
-You must use the URL specification of the CouchDB database if you want
+You must use the URL specification of the Cloudant database if you want
 to perform replication in either of the following two situations:
 
--  Replication with a remote database (i.e. another instance of CouchDB
+-  Replication with a remote database (i.e. another instance of Cloudant
    on the same host, or a different host)
 
 -  Replication with a database that requires authentication
 
 For example, to request replication between a database local to the
-CouchDB instance to which you send the request, and a remote database
+Cloudant instance to which you send the request, and a remote database
 you might use the following request:
 
 .. code-block:: http
 
-    POST http://couchdb:5984/_replicate
+    POST http://USERNAME.cloudant.com/_replicate
     Content-Type: application/json
     Accept: application/json
 
@@ -390,7 +390,7 @@ within the JSON object:
 
     {
        "error" : "db_not_found"
-       "reason" : "could not open http://couchdb-remote:5984/ol1ka/",
+       "reason" : "could not open http://USERNAME.cloudant.com/ol1ka/",
     }
 
 You can create the target database (providing your user credentials
@@ -398,14 +398,14 @@ allow it) by adding the ``create_target`` field to the request object:
 
 .. code-block:: http
 
-    POST http://couchdb:5984/_replicate
+    POST http://USERNAME.cloudant.com/_replicate
     Content-Type: application/json
     Accept: application/json
 
     {
        "create_target" : true
        "source" : "recipes",
-       "target" : "http://couchdb-remote:5984/recipes",
+       "target" : "http://USERNAME.cloudant.com/recipes",
     }
 
 The ``create_target`` field is not destructive. If the database already
@@ -422,7 +422,7 @@ and ``target`` fields within the request JSON content.
 
 .. code-block:: http
 
-    POST http://couchdb:5984/_replicate
+    POST http://USERNAME.cloudant.com/_replicate
     Content-Type: application/json
     Accept: application/json
 
@@ -432,7 +432,7 @@ and ``target`` fields within the request JSON content.
     }
 
 In the above example, the databases ``recipes`` and ``recipes-snapshot``
-will be synchronized. These databases are local to the CouchDB instance
+will be synchronized. These databases are local to the Cloudant instance
 where the request was made. The response will be a JSON structure
 containing the success (or failure) of the synchronization process, and
 statistics about the process:
@@ -495,14 +495,14 @@ request that replication ceases.
 
 .. code-block:: http
 
-    POST http://couchdb:5984/_replicate
+    POST http://USERNAME.cloudant.com/_replicate
     Content-Type: application/json
     Accept: application/json
 
     {
        "continuous" : true
        "source" : "recipes",
-       "target" : "http://couchdb-remote:5984/recipes",
+       "target" : "http://USERNAME.cloudant.com/recipes",
     }
 
 Changes will be replicated between the two databases as long as a
@@ -528,13 +528,13 @@ For example, the replication request:
 
 .. code-block:: http
 
-    POST http://couchdb:5984/_replicate
+    POST http://USERNAME.cloudant.com/_replicate
     Content-Type: application/json
     Accept: application/json
 
     {
        "source" : "recipes",
-       "target" : "http://couchdb-remote:5984/recipes",
+       "target" : "http://USERNAME.cloudant.com/recipes",
        "create_target" : true,
        "continuous" : true
     }
@@ -543,7 +543,7 @@ Must be canceled using the request:
 
 .. code-block:: http
 
-    POST http://couchdb:5984/_replicate
+    POST http://USERNAME.cloudant.com/_replicate
     Content-Type: application/json
     Accept: application/json
 
@@ -552,7 +552,7 @@ Must be canceled using the request:
         "continuous" : true
         "create_target" : true,
         "source" : "recipes",
-        "target" : "http://couchdb-remote:5984/recipes",
+        "target" : "http://USERNAME.cloudant.com/recipes",
     }
 
 Requesting cancellation of a replication that does not exist results in
@@ -578,14 +578,14 @@ a 404 error.
   * **200**:
     Replication request successfully completed
 
-Restarts the CouchDB instance. You must be authenticated as a user with
+Restarts the Cloudant instance. You must be authenticated as a user with
 administration privileges for this to work.
 
 For example:
 
 .. code-block:: http
 
-    POST http://admin:password@couchdb:5984/_restart
+    POST http://admin:password@USERNAME.cloudant.com/_restart
 
 The return value (if the server has not already restarted) is a JSON
 status object indicating that the request has been received:
@@ -630,7 +630,7 @@ self-describing. For example, the request time statistics, within the
              "current" : "400.976",
              "mean" : "10.837",
              "sum" : "400.976",
-             "description" : "length of a request inside CouchDB without MochiWeb"
+             "description" : "length of a request inside Cloudant without MochiWeb"
           },
     ...
         }
@@ -643,7 +643,7 @@ defined, but the descriptions below provide
 
 The statistics are divided into the following top-level sections:
 
--  ``couchdb``: Describes statistics specific to the internals of CouchDB.
+-  ``couchdb``: Describes statistics specific to the internals of Cloudant.
 
    +-------------------------+-------------------------------------------------------+----------------+
    | Statistic ID            | Description                                           | Unit           |
@@ -658,9 +658,9 @@ The statistics are divided into the following top-level sections:
    +-------------------------+-------------------------------------------------------+----------------+
    | ``open_databases``      | Number of open databases                              | number         |
    +-------------------------+-------------------------------------------------------+----------------+
-   | ``open_os_files``       | Number of file descriptors CouchDB has open           | number         |
+   | ``open_os_files``       | Number of file descriptors Cloudant has open           | number         |
    +-------------------------+-------------------------------------------------------+----------------+
-   | ``request_time``        | Length of a request inside CouchDB without MochiWeb   | milliseconds   |
+   | ``request_time``        | Length of a request inside Cloudant without MochiWeb   | milliseconds   |
    +-------------------------+-------------------------------------------------------+----------------+
 
 -  ``httpd_request_methods``
@@ -752,7 +752,7 @@ structure is as follows:
              "current" : 34697.803,
              "mean" : 1652.276,
              "sum" : 34697.803,
-             "description" : "length of a request inside CouchDB without MochiWeb"
+             "description" : "length of a request inside Cloudant without MochiWeb"
           }
        }
     }
@@ -766,7 +766,7 @@ structure is as follows:
 * **Response**: Administration interface
 * **Admin Privileges Required**: no
 
-Accesses the built-in Futon administration interface for CouchDB.
+Accesses the built-in Futon administration interface for Cloudant.
 
 ``GET /_uuids``
 ===============
@@ -789,7 +789,7 @@ Accesses the built-in Futon administration interface for CouchDB.
     Request completed successfully.
 
 Requests one or more Universally Unique Identifiers (UUIDs) from the
-CouchDB instance. The response is a JSON object providing a list of
+Cloudant instance. The response is a JSON object providing a list of
 UUIDs. For example:
 
 .. code-block:: javascript
@@ -805,7 +805,7 @@ returned. For example:
 
 .. code-block:: http
 
-    GET http://couchdb:5984/_uuids?count=5
+    GET http://USERNAME.cloudant.com/_uuids?count=5
 
 Returns:
 
@@ -821,14 +821,14 @@ Returns:
        ]
     }
 
-The UUID type is determined by the UUID type setting in the CouchDB
+The UUID type is determined by the UUID type setting in the Cloudant
 configuration. See :ref:`api-put-config`.
 
 For example, changing the UUID type to ``random``:
 
 .. code-block:: http
 
-    PUT http://couchdb:5984/_config/uuids/algorithm
+    PUT http://USERNAME.cloudant.com/_config/uuids/algorithm
     Content-Type: application/json
     Accept: */*
 

@@ -15,7 +15,7 @@ JSON Structure Reference
 ========================
 
 The following appendix provides a quick reference to all the JSON structures
-that you can supply to CouchDB, or get in return to requests.
+that you can supply to Cloudant, or get in return to requests.
 
 All Database Documents
 ======================
@@ -84,7 +84,7 @@ Changes information for a database
 |                                | document                                    |
 +--------------------------------+---------------------------------------------+
 
-CouchDB Document
+Cloudant Document
 ================
 
 +--------------------------------+---------------------------------------------+
@@ -96,7 +96,7 @@ CouchDB Document
 |                                | document)                                   |
 +--------------------------------+---------------------------------------------+
 
-CouchDB Error Status
+Cloudant Error Status
 ====================
 
 +--------------------------------+---------------------------------------------+
@@ -111,7 +111,7 @@ CouchDB Error Status
 
 .. _dbinfo_object:
 
-CouchDB database information object
+Cloudant database information object
 ===================================
 
 +--------------------------------+---------------------------------------------+
@@ -482,12 +482,12 @@ Response object
    them.
 
 .. note::
-   Any custom property makes CouchDB raise internal exception.
+   Any custom property makes Cloudant raise internal exception.
    Also `Response object` could be a simple string value which would be
    implicitly wrapped into ``{"body": ...}`` object.
 
 
-Returned CouchDB Document with Detailed Revision Info
+Returned Cloudant Document with Detailed Revision Info
 =====================================================
 
 +--------------------------------+---------------------------------------------+
@@ -498,14 +498,14 @@ Returned CouchDB Document with Detailed Revision Info
 | _rev (optional)                | Revision ID (when updating an existing      |
 |                                | document)                                   |
 +--------------------------------+---------------------------------------------+
-| _revs_info [array]             | CouchDB Document Extended Revision Info     |
+| _revs_info [array]             | Cloudant Document Extended Revision Info     |
 +--------------------------------+---------------------------------------------+
 |         rev                    | Full revision string                        |
 +--------------------------------+---------------------------------------------+
 |         status                 | Status of the revision                      |
 +--------------------------------+---------------------------------------------+
 
-Returned CouchDB Document with Revision Info
+Returned Cloudant Document with Revision Info
 ============================================
 
 +--------------------------------+---------------------------------------------+
@@ -516,7 +516,7 @@ Returned CouchDB Document with Revision Info
 | _rev (optional)                | Revision ID (when updating an existing      |
 |                                | document)                                   |
 +--------------------------------+---------------------------------------------+
-| _revisions                     | CouchDB Document Revisions                  |
+| _revisions                     | Cloudant Document Revisions                  |
 +--------------------------------+---------------------------------------------+
 |     ids [array]                | Array of valid revision IDs, in reverse     |
 |                                | order (latest first)                        |
@@ -646,7 +646,7 @@ Any numbers that are used in views will pass through the views idea of
 a number (the common JavaScript case means even integers pass through
 a double due to JavaScript's definition of a number).
 
-Consider this document that we write to CouchDB:
+Consider this document that we write to Cloudant:
 
 .. code-block:: javascript
 
@@ -655,7 +655,7 @@ Consider this document that we write to CouchDB:
       "number": 1.1
     }
 
-Now let’s read that document back from CouchDB:
+Now let’s read that document back from Cloudant:
 
 .. code-block:: javascript
 
@@ -666,14 +666,14 @@ Now let’s read that document back from CouchDB:
     }
 
 
-What happens is CouchDB is changing the textual representation of the
+What happens is Cloudant is changing the textual representation of the
 result of decoding what it was given into some numerical format. In most
 cases this is an `IEEE 754`_ double precision floating point number which
 is exactly what almost all other languages use as well.
 
 .. _IEEE 754: https://en.wikipedia.org/wiki/IEEE_754-2008
 
-What CouchDB does a bit differently than other languages is that it
+What Cloudant does a bit differently than other languages is that it
 does not attempt to pretty print the resulting output to use the
 shortest number of characters. For instance, this is why we have this
 relationship:
@@ -752,7 +752,7 @@ Ruby::
          parsing the number though.
 
 
-Ejson (CouchDB's current parser) at CouchDB sha 168a663b::
+Ejson (Cloudant's current parser) at Cloudant sha 168a663b::
 
     $ ./utils/run -i
     Erlang R14B04 (erts-5.8.5) [source] [64-bit] [smp:2:2] [rq:2]
@@ -771,7 +771,7 @@ As you can see they all pretty much behave the same except for Ruby
 actually does appear to be losing some precision over the other
 libraries.
 
-The astute observer will notice that ejson (the CouchDB JSON library)
+The astute observer will notice that ejson (the Cloudant JSON library)
 reported an extra three digits. While its tempting to think that this
 is due to some internal difference, its just a more specific case of
 the 1.1 input as described above.
@@ -803,7 +803,7 @@ to duplicate in C without a significant amount of effort (it took
 Python over a year to get it sorted with their fancy build systems
 that automatically run on a number of different architectures).
 
-Hopefully we've shown that CouchDB is not doing anything "funky" by
+Hopefully we've shown that Cloudant is not doing anything "funky" by
 changing input. Its behaving the same as any other common JSON library
 does, its just not pretty printing its output.
 

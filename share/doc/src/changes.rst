@@ -140,7 +140,7 @@ Long Polling
 
 The `longpoll` feed (probably most useful used from a browser) is a more
 efficient form of polling that waits for a change to occur before the response
-is sent. `longpoll` avoids the need to frequently poll CouchDB to discover
+is sent. `longpoll` avoids the need to frequently poll Cloudant to discover
 nothing has changed!
 
 The response is basically the same JSON as is sent for the normal feed.
@@ -152,9 +152,9 @@ empty list.  
 Continuous
 ==========
 
-Polling the CouchDB server is not a good thing to do. Setting up new HTTP
+Polling the Cloudant server is not a good thing to do. Setting up new HTTP
 connections just to tell the client that nothing happened puts unnecessary
-strain on CouchDB.
+strain on Cloudant.
 
 A continuous feed stays open and connected to the database until explicitly
 closed and changes are sent to the client as they happen, i.e. in near
@@ -187,7 +187,7 @@ Event Source
 
 The `eventsource` feed provides push notifications that can be consumed in
 the form of DOM events in the browser. Refer to the `W3C eventsource
-specification`_ for further details. CouchDB honors the ``Last-Event-ID`` header,
+specification`_ for further details. Cloudant honors the ``Last-Event-ID`` header,
 and if it's present it will take precedence over the ``since`` query parameter.
 
 .. code-block:: text

@@ -50,7 +50,7 @@ In the couch log you'll see 2 entries like these:
     [Thu, 17 Feb 2011 19:44:37 GMT] [info] [<0.124.0>] Replication `c0ebe9256695ff083347cbf95f93e280+create_target` finished (triggered by document `my_rep`)
 
 As soon as the replication is triggered, the document will be updated by
-CouchDB with 3 new fields:
+Cloudant with 3 new fields:
 
 .. code-block:: javascript
 
@@ -102,7 +102,7 @@ When an error happens during replication, the ``_replication_state``
 field is set to ``error`` (and ``_replication_state_time`` gets updated of
 course).
 
-When you PUT/POST a document to the ``_replicator`` database, CouchDB
+When you PUT/POST a document to the ``_replicator`` database, Cloudant
 will attempt to start the replication up to 10 times (configurable under
 ``[replicator]``, parameter ``max_replication_retry_count``). If it
 fails on the first attempt, it waits 5 seconds before doing a second
@@ -149,7 +149,7 @@ and
 
 Both describe exactly the same replication (only their ``_ids`` differ).
 In this case document ``doc_A`` triggers the replication, getting
-updated by CouchDB with the fields ``_replication_state``,
+updated by Cloudant with the fields ``_replication_state``,
 ``_replication_state_time`` and ``_replication_id``, just like it was
 described before. Document ``doc_B`` however, is only updated with one
 field, the ``_replication_id`` so it will look like this:
@@ -200,7 +200,7 @@ following:
 Server restart
 --------------
 
-When CouchDB is restarted, it checks its ``_replicator`` database and
+When Cloudant is restarted, it checks its ``_replicator`` database and
 restarts any replication that is described by a document that either has
 its ``_replication_state`` field set to ``triggered`` or it doesn't have
 yet the ``_replication_state`` field set.
@@ -208,7 +208,7 @@ yet the ``_replication_state`` field set.
 .. note::
    Continuous replications always have a ``_replication_state`` field
    with the value ``triggered``, therefore they're always restarted
-   when CouchDB is restarted.
+   when Cloudant is restarted.
 
 Changing the Replicator Database
 --------------------------------
@@ -241,7 +241,7 @@ and B:
         "_replication_state_time":  1297974122
     }
 
-Now without stopping and restarting CouchDB, you change the name of the
+Now without stopping and restarting Cloudant, you change the name of the
 replicator database to ``another_replicator_db``:
 
 .. code-block:: bash
@@ -250,7 +250,7 @@ replicator database to ``another_replicator_db``:
     "_replicator"
 
 As soon as this is done, both pull replications defined before, are
-stopped. This is explicitly mentioned in CouchDB's log:
+stopped. This is explicitly mentioned in Cloudant's log:
 
 .. code-block:: text
 

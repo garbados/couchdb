@@ -19,7 +19,7 @@ Local (non-replicating) Document Methods
 The Local (non-replicating) document interface allows you to create
 local documents that are not replicated to other databases. These
 documents can be used to hold configuration or other information that is
-required specifically on the local CouchDB instance.
+required specifically on the local Cloudant instance.
 
 Local documents have the following limitations:
 

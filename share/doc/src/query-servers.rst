@@ -62,7 +62,7 @@ modules and functions:
 
 .. function:: emit(key, value)
 
-   Emits a `key`-`value` pair for further processing by CouchDB after the map
+   Emits a `key`-`value` pair for further processing by Cloudant after the map
    function is done.
 
    :param key: The view key
@@ -115,7 +115,7 @@ modules and functions:
 
 .. function:: log(message)
 
-   Log a message to the CouchDB log (at the `INFO` level).
+   Log a message to the Cloudant log (at the `INFO` level).
 
    :param message: Message to be logged
 
@@ -126,7 +126,7 @@ modules and functions:
         emit(doc['_id'], null);
       }
 
-   After the map function has run, the following line can be found in CouchDB
+   After the map function has run, the following line can be found in Cloudant
    logs (e.g. at `/var/log/couchdb/couch.log`):
 
    .. code-block:: text
@@ -213,7 +213,7 @@ modules and functions:
         start({
           "code": 302,
           "headers": {
-            "Location": "http://couchdb.apache.org"
+            "Location": "http://cloudant.com"
           }
         });
         return "Relax!";
@@ -242,7 +242,7 @@ CommonJS Modules
 ----------------
 
 Support for `CommonJS Modules <http://wiki.commonjs.org/wiki/Modules/1.1.1>`_
-(introduced in CouchDB 0.11.0) allows you to create modular design functions
+(introduced in Cloudant 0.11.0) allows you to create modular design functions
 without the need for duplication of functionality.
 
 Here's a CommonJS module that checks user permissions:
@@ -316,7 +316,7 @@ Erlang
       [native_query_servers]
       erlang = {couch_native_process, start_link, []}
 
-   Don't forget to restart CouchDB after updating the configuration, and
+   Don't forget to restart Cloudant after updating the configuration, and
    use the ``language: "erlang"`` property in your Erlang design documents.
 
 
@@ -390,7 +390,7 @@ Erlang
       end.
 
    After the map function has run, the following line can be found in
-   CouchDB logs (e.g. at `/var/log/couchdb/couch.log`):
+   Cloudant logs (e.g. at `/var/log/couchdb/couch.log`):
 
    .. code-block:: text
 
@@ -422,14 +422,14 @@ Erlang
    :param Headers: Proplist of :ref:`response object<response_object>`.
 
    Initialize :ref:`listfun` response. At this point, response code and headers
-   may be defined. For example, this function redirects to the CouchDB web site:
+   may be defined. For example, this function redirects to the Cloudant web site:
 
    .. code-block:: erlang
 
       fun(Head, {Req}) ->
         Start({[{<<"code">>, 302},
                 {<<"headers">>, {[
-                  {<<"Location">>, <<"http://couchdb.apache.org">>}]
+                  {<<"Location">>, <<"http://cloudant.com">>}]
                 }}
               ]}),
         "Relax!"

@@ -37,7 +37,7 @@ them extensively within each function:
 View functions
 ==============
 
-Views are the primary tool used for querying and reporting on CouchDB databases.
+Views are the primary tool used for querying and reporting on Cloudant databases.
 
 .. _mapfun:
 
@@ -112,8 +112,8 @@ that main task of reduce functions is to *reduce* mapped result, not to make it
 even bigger. Generally, your reduce function should converge rapidly to a single
 value - which could be an array or similar object.
 
-Also CouchDB has three built-in reduce functions. These are implemented in
-Erlang and run right inside CouchDB, so they are much faster than the equivalent
+Also Cloudant has three built-in reduce functions. These are implemented in
+Erlang and run right inside Cloudant, so they are much faster than the equivalent
 JavaScript functions: ``_sum``, ``_count`` and ``_stats``. Their equivalents in
 JavaScript below:
 
@@ -159,23 +159,23 @@ JavaScript below:
    The reason lies deep inside in mechanism how `map` and `reduce` functions
    are processed by Query Server. Let's take a look on `map` functions first:
 
-   #. CouchDB sends all `map` functions for processed design document to
+   #. Cloudant sends all `map` functions for processed design document to
       Query Server.
    #. Query Server handles them one by one, compiles and puts them onto an
       internal stack.
-   #. After all `map` functions had been processed, CouchDB will send the
+   #. After all `map` functions had been processed, Cloudant will send the
       remaining documents to index one by one.
    #. The Query Server receives the document object and applies it to every function
       from the stack. The emitted results are then joined into a single array and sent
-      back to CouchDB.
+      back to Cloudant.
 
    Now let's see how `reduce` functions are handled:
 
-   #. CouchDB sends *as single command* list of available `reduce` functions
+   #. Cloudant sends *as single command* list of available `reduce` functions
       with result list of key-value pairs that was previously received as
       result of `map` functions work.
    #. Query Server compiles reduce functions and applies them to key-value
-      lists. Reduced result sends back to CouchDB.
+      lists. Reduced result sends back to Cloudant.
 
    As you may note, `reduce` functions been applied in single shot while
    `map` ones are applied in an iterative way per each document. This means that
@@ -229,7 +229,7 @@ Also, there is more simple way to return json encoded data:
     }
 
 
-and even files (this one is CouchDB logo):
+and even files (this one is Cloudant logo):
 
 .. code-block:: javascript
 
@@ -307,10 +307,10 @@ correctly, and keys with invalid characters, but you've got the idea!
 
 .. seealso::
 
-   CouchDB Wiki:
+   Cloudant Wiki:
     - `Showing Documents <http://wiki.apache.org/couchdb/Formatting_with_Show_and_List#Showing_Documents>`_
 
-   CouchDB Guide:
+   Cloudant Guide:
      - `Show Functions <http://guide.couchdb.org/editions/1/en/show.html>`_
 
 
@@ -361,10 +361,10 @@ way as for :ref:`showfun`!
 
 .. seealso::
 
-   CouchDB Wiki:
-    - `Listing Views with CouchDB 0.10 and later <http://wiki.apache.org/couchdb/Formatting_with_Show_and_List#Listing_Views_with_CouchDB_0.10_and_later>`_
+   Cloudant Wiki:
+    - `Listing Views with Cloudant 0.10 and later <http://wiki.apache.org/couchdb/Formatting_with_Show_and_List#Listing_Views_with_Cloudant_0.10_and_later>`_
 
-   CouchDB Guide:
+   Cloudant Guide:
     - `Transforming Views with List Functions <http://guide.couchdb.org/draft/transforming.html>`_
 
 
@@ -417,7 +417,7 @@ The basic example that demonstrates all use-cases of update handlers below:
 
 .. seealso::
 
-   CouchDB Wiki:
+   Cloudant Wiki:
     - `Document Update Handlers <http://wiki.apache.org/couchdb/Document_Update_Handlers>`_
 
 
@@ -555,10 +555,10 @@ To use them just specify `_view` value for ``filter`` parameter and
 
 .. seealso::
 
-   CouchDB Guide:
+   Cloudant Guide:
     - `Guide to filter change notification <http://guide.couchdb.org/draft/notifications.html#filters>`_
 
-   CouchDB Wiki:
+   Cloudant Wiki:
     - `Filtered replication <http://wiki.apache.org/couchdb/Replication#Filtered_Replication>`_
 
 
@@ -744,8 +744,8 @@ modified by a user with the ``_admin`` role:
 
 .. seealso::
 
-   CouchDB Guide:
+   Cloudant Guide:
     - `Validation Functions <http://guide.couchdb.org/editions/1/en/validation.html>`_
 
-   CouchDB Wiki:
+   Cloudant Wiki:
     - `Document Update Validation <http://wiki.apache.org/couchdb/Document_Update_Validation>`_

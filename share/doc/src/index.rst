@@ -13,10 +13,10 @@
 Introduction
 ============
 
-|Apache CouchDB(TM)|_ is a document database built for the web.
+|Cloudant|_ is a document database built for the web.
 
 If you would like to help document the project, please send a note to the
-`developer mailing list <http://couchdb.apache.org/#mailing-list>`_.
+`developer mailing list <http://cloudant.com/#mailing-list>`_.
 
 This is a work in progress.
 
@@ -39,8 +39,7 @@ Contents
     json-structure
     config_reference
     contributing
-    changelog
 
 .. This is how you get a TM sign into a link. Haha. Seriously.
-.. |Apache CouchDB(TM)| unicode:: Apache U+0020 CouchDB U+2122
-.. _Apache CouchDB(TM): http://couchdb.apache.org/
+.. |Cloudant| unicode:: Apache U+0020 Cloudant U+2122
+.. _Cloudant: http://cloudant.com/

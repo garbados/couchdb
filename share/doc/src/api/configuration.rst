@@ -16,9 +16,9 @@
 Configuration Methods
 =====================
 
-The CouchDB API Server Configuration Methods provide an interface to
+The Cloudant API Server Configuration Methods provide an interface to
 query and update the various configuration values within a running
-CouchDB instance.
+Cloudant instance.
 
 A list of the available methods and URL paths are provided below:
 
@@ -51,7 +51,7 @@ A list of the available methods and URL paths are provided below:
   * **200**:
     Request completed successfully.
 
-Returns the entire CouchDB server configuration as a JSON structure. The
+Returns the entire Cloudant server configuration as a JSON structure. The
 structure is organized by different configuration sections, with
 individual values.
 
@@ -59,7 +59,7 @@ For example, to get the configuration for a server:
 
 .. code-block:: http
 
-    GET http://couchdb:5984/_config
+    GET http://USERNAME.cloudant.com/_config
     Accept: application/json
 
 The response is the JSON structure:
@@ -180,11 +180,11 @@ The response is the JSON structure:
     Request completed successfully.
 
 Gets the configuration structure for a single section. For example, to
-retrieve the CouchDB configuration section values:
+retrieve the Cloudant configuration section values:
 
 .. code-block:: http
 
-    GET http://couchdb:5984/_config/couchdb
+    GET http://USERNAME.cloudant.com/_config/couchdb
     Accept: application/json
 
 The returned JSON contains just the configuration values for this
@@ -221,7 +221,7 @@ section. For example, to obtain the current log level:
 
 .. code-block:: http
 
-    GET http://couchdb:5984/_config/log/level
+    GET http://USERNAME.cloudant.com/_config/log/level
     Accept: application/json
 
 Returns the string of the log level:
@@ -261,7 +261,7 @@ For example, to set the function used to generate UUIDs by the
 
 .. code-block:: http
 
-    PUT http://couchdb:5984/_config/uuids/algorithm
+    PUT http://USERNAME.cloudant.com/_config/uuids/algorithm
     Content-Type: application/json
 
     "utc_random"
@@ -287,7 +287,7 @@ delete the UUID parameter:
 
 .. code-block:: http
 
-    DELETE http://couchdb:5984/_config/uuids/algorithm
+    DELETE http://USERNAME.cloudant.com/_config/uuids/algorithm
     Content-Type: application/json
 
 The returned value is the last configured UUID function:

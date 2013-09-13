@@ -15,12 +15,12 @@
 Replication
 ===========
 
-One of CouchDB's strengths is the ability to synchronize two copies of the same
+One of Cloudant's strengths is the ability to synchronize two copies of the same
 database. This enables users to distribute data across several nodes or
 datacenters, but also to move data more closely to clients.
 
 Replication involves a source and a destination database, which can be one the
-same or on different CouchDB instances. The aim of the replication is that at
+same or on different Cloudant instances. The aim of the replication is that at
 the end of the process, all active documents on the source database are also in
 the destination database and all documents that were deleted in the source
 databases are also deleted on the destination database (if they even existed).
@@ -43,7 +43,7 @@ set to `true`.
 Replication Procedure
 ---------------------
 
-During replication, CouchDB will compare the source and the destination
+During replication, Cloudant will compare the source and the destination
 database to determine which documents differ between the source and the
 destination database. It does so by following the :ref:`changes` on the source
 and comparing the documents to the destination. Changes are submitted to the
@@ -89,7 +89,7 @@ Migrating Data to Clients
 -------------------------
 
 Replication can be especially useful for bringing data closer to clients.
-`PouchDB <http://pouchdb.com/>`_ implements the replication algorithm of CouchDB
-in JavaScript, making it possible to make data from a CouchDB database
+`PouchDB <http://pouchdb.com/>`_ implements the replication algorithm of Cloudant
+in JavaScript, making it possible to make data from a Cloudant database
 available in an offline browser application, and synchronize changes back to
-CouchDB.
+Cloudant.
