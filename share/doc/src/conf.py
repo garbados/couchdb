@@ -20,27 +20,25 @@ master_doc = "index"
 
 nitpicky = True
 
-version = "1.4"
+release = "1.0.2"
 
-release = "1.4.0"
+project = u"Cloudant Documentation"
 
-project = u"Apache CouchDB"
-
-copyright = u"2013, The Apache Software Foundation"
+copyright = u"2013 Cloudant"
 
 highlight_language = "json"
 
 pygments_style = "sphinx"
 
-html_theme = "default"
+html_theme = "basic"
 
 templates_path = ["../templates"]
 
 html_static_path = ["../static"]
 
-html_title = "Apache CouchDB " + version + " Manual"
+html_title = "Cloudant Documentation"
 
-html_style = "rtd.css"
+html_style = "cloudant_rtd.css"
 
 html_logo = "../images/logo.png"
 
@@ -50,8 +48,7 @@ html_sidebars= {
     "**": [
         "searchbox.html",
         "localtoc.html",
-        "relations.html",
-        "utilities.html",
+#        "relations.html",
         "help.html",
     ]
 }
@@ -60,12 +57,14 @@ text_newlines = "native"
 
 latex_documents = [(
     "index",
-    "CouchDB.tex",
-    project,
+    "Cloudant-API-Reference.tex",
+    "Documentation",
     "",
     "manual",
     True
 )]
+
+latex_logo = "../images/CloudantLogo_RGB_2C-noRightMargin.png"
 
 latex_elements = {
     "papersize":"a4paper"
@@ -73,16 +72,14 @@ latex_elements = {
 
 texinfo_documents = [(
     "index",
-    "CouchDB",
+    "Cloudant",
     project,
     "",
-    "CouchDB",
-    "The Apache CouchDB database",
+    "Cloudant",
+    "Cloudant",
     "Databases",
     True
 )]
 
 extlinks = {
-    'issue': ('https://issues.apache.org/jira/browse/COUCHDB-%s', 'COUCHDB-'),
-    'commit': ('https://git-wip-us.apache.org/repos/asf?p=couchdb.git;a=commit;h=%s', '#')
 }
