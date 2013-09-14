@@ -35,6 +35,7 @@ Contents
     ddocs
     query-servers
     changes
+    examples/index.rst
     api/reference
     json-structure
 
