@@ -37,6 +37,7 @@ Contents
     changes
     api/reference
     json-structure
+    theory/index.rst
     config_reference
     contributing
     changelog
