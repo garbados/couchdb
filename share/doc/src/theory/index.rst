@@ -1,5 +1,5 @@
-Guides
-=======
+Theory and Concepts
+===================
 
 .. toctree::
    :maxdepth: 2
