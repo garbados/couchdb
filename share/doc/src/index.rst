@@ -13,7 +13,7 @@
 Introduction
 ============
 
-|Cloudant|_ is a document database built for the web.
+Cloudant_ is a document database built for the web.
 
 If you would like to help document the project, please send a note to the
 `developer mailing list <http://cloudant.com/#mailing-list>`_.
@@ -37,9 +37,5 @@ Contents
     changes
     api/reference
     json-structure
-    config_reference
-    contributing
 
-.. This is how you get a TM sign into a link. Haha. Seriously.
-.. |Cloudant| unicode:: Apache U+0020 Cloudant U+2122
 .. _Cloudant: http://cloudant.com/
