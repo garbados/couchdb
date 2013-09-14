@@ -36,6 +36,7 @@ Contents
     query-servers
     changes
     examples/index.rst
+    theory/index.rst
     api/reference
     json-structure
 
