@@ -237,6 +237,8 @@ def write_config(ctx, node, env):
             content = apply_config_overrides(ctx, content)
         elif base == "local.ini":
             content = hack_local_ini(ctx, content)
+        elif base == "vm.args":
+            content = hack_vm_args(ctx, node, content)
 
         with open(tgt, "w") as handle:
             handle.write(content)
@@ -305,6 +307,14 @@ def hack_local_ini(ctx, contents):
         user, pswd = ctx['admin']
 
     return contents + "\n%s = %s" % (user, hashify(pswd))
+
+
+def hack_vm_args(ctx, node, contents):
+    # restrict listening to a single port
+    i = node[-1]
+    contents += "\n-kernel inet_dist_listen_min 900%s" % i
+    contents += "\n-kernel inet_dist_listen_max 900%s" % i
+    return contents
 
 
 def gen_password():
